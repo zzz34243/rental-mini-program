@@ -2,11 +2,12 @@
 
 智能租房小程序服务项目，围绕租房 / 购房场景提供房源数据采集、字段标准化、自然语言需求解析、混合推荐排序、AI 推荐说明、评价收藏和推荐历史等能力。
 
-当前仓库已经将主程序结构外露到根目录，进入仓库后可以直接看到核心服务模块：
+当前仓库已经将主程序结构外露到根目录，进入仓库后可以直接看到核心服务模块，而不是只看到前后端两个文件夹。
 
 - `app/`：核心业务代码，包括采集、清洗、推荐算法、LLM 调用和 API 编排。
-- `storage/`：运行期数据目录，开源仓库仅保留 `.gitkeep`。
+- `docs/`：项目文档，包括架构说明和接口说明。
 - `frontend/`：前端侧服务目录，可用于小程序联调或后续迁移为真正的小程序端工程。
+- `storage/`：运行期数据目录，开源仓库仅保留 `.gitkeep`。
 - `server.py`：服务启动入口。
 - `requirements.txt`：Python 依赖。
 - `local.env.example`：本地配置示例。
@@ -27,24 +28,24 @@
 
 ```text
 rental-mini-program
-├── app
-│   ├── collectors.py          # 数据采集器
-│   ├── normalizers.py         # 字段清洗与向量文本构建
-│   ├── repositories.py        # JSON 文件仓库
-│   ├── demand_parser.py       # 自然语言需求解析
-│   ├── embeddings.py          # 向量化服务
-│   ├── search.py              # 过滤、评分与推荐排序
-│   ├── answer_generator.py    # 推荐说明生成
-│   ├── services.py            # 业务服务编排
-│   ├── fastapi_app.py         # FastAPI 接口层
-│   └── http_app.py            # 标准库 HTTP 接口层
-├── frontend                   # 前端侧服务目录
-├── storage                    # 运行期数据目录，仅保留 .gitkeep
-├── docs                       # 说明文档
-├── server.py                  # 服务启动入口
-├── requirements.txt           # Python 依赖
-├── local.env.example          # 环境变量示例
-└── README.md
+|-- app
+|   |-- collectors.py          # 数据采集器
+|   |-- normalizers.py         # 字段清洗与向量文本构建
+|   |-- repositories.py        # JSON 文件仓库
+|   |-- demand_parser.py       # 自然语言需求解析
+|   |-- embeddings.py          # 向量化服务
+|   |-- search.py              # 过滤、评分与推荐排序
+|   |-- answer_generator.py    # 推荐说明生成
+|   |-- services.py            # 业务服务编排
+|   |-- fastapi_app.py         # FastAPI 接口层
+|   `-- http_app.py            # 标准库 HTTP 接口层
+|-- docs                       # 说明文档
+|-- frontend                   # 前端侧服务目录
+|-- storage                    # 运行期数据目录，仅保留 .gitkeep
+|-- server.py                  # 服务启动入口
+|-- requirements.txt           # Python 依赖
+|-- local.env.example          # 环境变量示例
+`-- README.md
 ```
 
 ## Architecture
