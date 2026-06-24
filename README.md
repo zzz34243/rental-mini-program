@@ -1,28 +1,18 @@
 # rental-mini-program
 
-智能租房小程序服务项目，围绕租房 / 购房场景提供房源数据采集、字段标准化、自然语言需求解析、混合推荐排序、AI 推荐说明、评价收藏和推荐历史等能力。
-
-当前仓库已经将主程序结构外露到根目录，进入仓库后可以直接看到核心服务模块，而不是只看到前后端两个文件夹。
-
-- `app/`：核心业务代码，包括采集、清洗、推荐算法、LLM 调用和 API 编排。
-- `docs/`：项目文档，包括架构说明和接口说明。
-- `frontend/`：前端侧服务目录，可用于小程序联调或后续迁移为真正的小程序端工程。
-- `storage/`：运行期数据目录，开源仓库仅保留 `.gitkeep`。
-- `server.py`：服务启动入口。
-- `requirements.txt`：Python 依赖。
-- `local.env.example`：本地配置示例。
+面向租房与购房场景的智能房源服务项目，提供房源数据采集、字段标准化、自然语言需求解析、混合推荐排序、AI 推荐说明、评价收藏和推荐历史等能力。
 
 ## Highlights
 
 | Capability | Description |
 |---|---|
-| 数据采集 | 支持采集器注册机制，当前包含本地样例源和链家移动站推荐流采集源。 |
+| 数据采集 | 支持采集器注册机制，可接入本地样例源和房源平台推荐流。 |
 | 数据标准化 | 将不同来源房源统一清洗为标准 `House` 模型，便于检索、推荐和展示。 |
 | 智能推荐 | 支持自然语言需求解析、结构化过滤、词法评分、向量相似度和混合排序。 |
-| 向量检索 | 支持 Ollama embedding，本地不可用时自动回退到 hash embedding。 |
-| AI 说明 | 可调用 OpenAI 兼容接口生成推荐说明，失败时自动降级为模板说明。 |
+| 向量检索 | 支持 Ollama embedding，本地不可用时可回退到 hash embedding。 |
+| AI 说明 | 支持 OpenAI 兼容接口生成推荐说明，并提供模板降级能力。 |
 | 用户服务 | 提供房源列表、详情、评价、收藏、推荐历史和采集记录等接口。 |
-| 轻量部署 | 使用 JSON 文件仓库存储运行数据，适合课程设计、原型验证和小规模演示。 |
+| 轻量部署 | 使用 JSON 文件仓库存储运行数据，适合原型验证、小规模演示和课程设计。 |
 
 ## Project Structure
 
@@ -39,9 +29,9 @@ rental-mini-program
 |   |-- services.py            # 业务服务编排
 |   |-- fastapi_app.py         # FastAPI 接口层
 |   `-- http_app.py            # 标准库 HTTP 接口层
-|-- docs                       # 说明文档
+|-- docs                       # 项目文档
 |-- frontend                   # 前端侧服务目录
-|-- storage                    # 运行期数据目录，仅保留 .gitkeep
+|-- storage                    # 运行期数据目录
 |-- server.py                  # 服务启动入口
 |-- requirements.txt           # Python 依赖
 |-- local.env.example          # 环境变量示例
@@ -117,7 +107,7 @@ python server.py
 http://127.0.0.1:5000
 ```
 
-访问健康检查：
+健康检查：
 
 ```powershell
 Invoke-WebRequest http://127.0.0.1:5000/health
@@ -125,7 +115,7 @@ Invoke-WebRequest http://127.0.0.1:5000/health
 
 ## Configuration
 
-项目不会提交真实 `local.env`。如需配置云端 LLM 或本地 embedding 服务，可以复制示例文件：
+复制环境变量示例文件：
 
 ```powershell
 Copy-Item local.env.example local.env
@@ -144,18 +134,17 @@ Copy-Item local.env.example local.env
 | `ANJU_OLLAMA_BASE_URL` | Ollama 服务地址。 |
 | `ANJU_OLLAMA_TIMEOUT` | Ollama 请求超时时间。 |
 
-## Repository Hygiene
+## Runtime Data
 
-仓库已排除以下本地文件：
+`storage/` 用于保存运行期数据。服务运行后会按需生成以下文件：
 
-- 虚拟环境：`.venv/`
-- Python 缓存：`__pycache__/`
-- 本地密钥配置：`local.env`
-- 运行日志：`.tmp/`、`*.log`
-- 运行期数据：`storage/*.json`
-- 本地工具目录：`.agents/`
+- `listings.json`
+- `reviews.json`
+- `favorites.json`
+- `ai_history.json`
+- `collection_runs.json`
 
-`storage/` 目录仅通过 `.gitkeep` 保留空目录结构，避免上传本地采集数据或测试数据。
+这些文件属于运行数据，不建议纳入版本控制。
 
 ## Roadmap
 
