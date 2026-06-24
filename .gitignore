@@ -26,3 +26,6 @@ storage/*.json
 .idea/
 .DS_Store
 Thumbs.db
+
+# Local Codex workspace metadata
+.agents/
